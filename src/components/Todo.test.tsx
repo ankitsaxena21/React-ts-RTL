@@ -1,34 +1,32 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import Todo from './Todo';
 import userEvent from '@testing-library/user-event';
 
 describe('Todo App', () => {
   it('Renders without crashing', () => {
-    render(<Todo />);
-    const linkElement = screen.getByText(/Todo App/i);
-    expect(linkElement).toBeInTheDocument();
+    render(<Todo/>);
+    const heading = screen.getByText(/Todo App/);
+    expect(heading).toBeInTheDocument();
   });
-
-  it("Has an input field", () => {
-    const { getByTestId } = render(<Todo />);
+  
+  it('has an input field', ()=> {
+    const {getByTestId} = render(<Todo/>);
     expect(getByTestId("todo-input")).toBeInTheDocument();
   });
-
-  it("When the Enter button is pressed, it creates a new todo item", () => {
-    const { getByTestId, getByText } = render(<Todo />);
-    const event = { target: { value: "Create more tests" } };
+  
+  it('when value types, input value updated', ()=> {
+    const {getByTestId, getByText} = render(<Todo/>);
+    const event = {target: {value: "test3"}};
     fireEvent.change(getByTestId("todo-input"), event);
-    expect(getByTestId("todo-input")).toHaveValue("Create more tests");
-    fireEvent.submit(getByTestId("add"));
-    expect(getByText("Create more tests")).toBeInTheDocument();
+    expect(getByTestId("todo-input")).toHaveValue("test3");
+    fireEvent.submit(getByTestId('add'));
+    expect(getByText("test3")).toBeInTheDocument();
   });
-
-  it("Testing using userEvent", () => {
-    const { getByTestId, getByText } = render(<Todo />);
-    const input = getByTestId("todo-input");
-    userEvent.type(input, "new test item");
-    expect(input).toHaveValue('new test item');
+  
+  it('Testing using userEvent', ()=> {
+    const {getByTestId, getByText} = render(<Todo/>);
+    userEvent.type(getByTestId("todo-input"), "test4");
+    expect(getByTestId("todo-input")).toHaveValue("test4");
   });
 });
-
