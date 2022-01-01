@@ -15,13 +15,13 @@ describe('Todo App', () => {
     expect(getByTestId("todo-input")).toBeInTheDocument();
   });
   
-  it('when value types, input value updated', ()=> {
-    const {getByTestId, getByText} = render(<Todo/>);
-    const event = {target: {value: "test3"}};
+ it("When the Enter button is pressed, it creates a new todo item", () => {
+    const { getByTestId, getByText } = render(<Todo />);
+    const event = { target: { value: "test val" } };
     fireEvent.change(getByTestId("todo-input"), event);
-    expect(getByTestId("todo-input")).toHaveValue("test3");
-    fireEvent.submit(getByTestId('add'));
-    expect(getByText("test3")).toBeInTheDocument();
+    expect(getByTestId("todo-input")).toHaveValue("test val");
+    fireEvent.submit(getByTestId("add"));
+    expect(getByText("Create more tests")).toBeInTheDocument();
   });
   
   it('Testing using userEvent', ()=> {
